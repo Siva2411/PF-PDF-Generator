@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EPF Passbook Form</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: #f1f5f9;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .form-container {
+        background-color: white;
+        padding: 32px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 900px;
+      }
+      h2 {
+        text-align: center;
+        color: #1e293b;
+        margin-bottom: 24px;
+        font-size: 1.875rem;
+        font-weight: 600;
+      }
+      .form-section {
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .form-section h3 {
+        color: #334155;
+        margin-bottom: 12px;
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        color: #475569;
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+      input[type="text"],
+      input[type="date"],
+      input[type="month"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+      }
+      input[type="text"]:focus,
+      input[type="date"]:focus,
+      input[type="month"]:focus,
+      input[type="number"]:focus,
+      select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+      .nested-section {
+        margin-left: 16px;
+        padding: 12px;
+        background-color: #f8fafc;
+        border-radius: 6px;
+      }
+      .nested-section h4 {
+        color: #334155;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+      .array-entry {
+        margin-bottom: 12px;
+        padding: 16px;
+        background-color: #f9fafb;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .add-row,
+      .delete-row {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      .add-row {
+        background-color: #10b981;
+        color: white;
+      }
+      .add-row:hover {
+        background-color: #059669;
+      }
+      .delete-row {
+        background-color: #ef4444;
+        color: white;
+      }
+      .delete-row:hover {
+        background-color: #dc2626;
+      }
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      button[type="submit"]:hover {
+        background-color: #2563eb;
+      }
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+      }
+      @media (max-width: 640px) {
+        .form-container {
+          padding: 16px;
+        }
+        h2 {
+          font-size: 1.5rem;
+        }
+        button[type="submit"] {
+          font-size: 0.875rem;
+        }
+        .grid-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <!-- Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>EPF Passbook Entry Form</h2>
+      <form id="epfForm" onsubmit="handleSubmit(event)">
+        <!-- Member Information Section -->
+        <div class="form-section">
+          <h3>Member Information</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="member_member_id">Member ID:</label>
+              <input
+                type="text"
+                id="member_member_id"
+                name="member_member_id"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="member_uan">UAN:</label>
+              <input
+                type="text"
+                id="member_uan"
+                name="member_uan"
+                pattern="[0-9]{12}"
+                title="UAN must be a 12-digit number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="member_name">Name:</label>
+              <input type="text" id="member_name" name="member_name" required />
+            </div>
+            <div class="form-group">
+              <label for="member_dob">Date of Birth:</label>
+              <input
+                type="text"
+                id="member_dob"
+                name="member_dob"
+                required
+                placeholder="Select date of birth"
+              />
+            </div>
+            <div class="form-group">
+              <label for="member_establishment_id">Establishment ID:</label>
+              <input
+                type="text"
+                id="member_establishment_id"
+                name="member_establishment_id"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="member_establishment_name">Establishment Name:</label>
+              <input
+                type="text"
+                id="member_establishment_name"
+                name="member_establishment_name"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Year Section -->
+        <div class="form-section">
+          <h3>Financial Year</h3>
+          <div class="form-group">
+            <label for="financial_year">Financial Year:</label>
+            <select id="financial_year" name="financial_year" required>
+              <option value="" disabled selected>Select Financial Year</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Opening Balance Section -->
+        <!-- <div class="form-section">
+          <h3>Opening Balance</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="opening_balance_upto_date">Up to Date:</label>
+              <input
+                type="date"
+                id="opening_balance_upto_date"
+                name="opening_balance_upto_date"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="opening_balance_epf_balance">EPF Balance (₹):</label>
+              <input
+                type="number"
+                id="opening_balance_epf_balance"
+                name="opening_balance_epf_balance"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="opening_balance_eps_balance">EPS Balance (₹):</label>
+              <input
+                type="number"
+                id="opening_balance_eps_balance"
+                name="opening_balance_eps_balance"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="opening_balance_pension_balance"
+                >Pension Balance (₹):</label
+              >
+              <input
+                type="number"
+                id="opening_balance_pension_balance"
+                name="opening_balance_pension_balance"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Monthly Contributions Section -->
+        <div class="form-section">
+          <h3>Monthly Contributions</h3>
+          <div id="monthly_contributions">
+            <!-- Initial Entry -->
+            <div class="array-entry" data-index="0">
+              <div class="grid-container">
+                <div class="form-group">
+                  <label for="monthly_contributions_0_wage_month"
+                    >Wage Month:</label
+                  >
+                  <input
+                    type="month"
+                    id="monthly_contributions_0_wage_month"
+                    name="monthly_contributions_0_wage_month"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_transaction_date"
+                    >Transaction Date:</label
+                  >
+                  <input
+                    type="date"
+                    id="monthly_contributions_0_transaction_date"
+                    name="monthly_contributions_0_transaction_date"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_transaction_type"
+                    >Transaction Type:</label
+                  >
+                  <select
+                    type="text"
+                    id="monthly_contributions_0_transaction_type"
+                    name="monthly_contributions_0_transaction_type"
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="DR">Dr</option>
+                    <option value="CR">Cr</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_particulars"
+                    >Particulars:</label
+                  >
+                  <input
+                    type="text"
+                    id="monthly_contributions_0_particulars"
+                    name="monthly_contributions_0_particulars"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_epf_wages"
+                    >EPF Wages (₹):</label
+                  >
+                  <input
+                    type="number"
+                    id="monthly_contributions_0_epf_wages"
+                    name="monthly_contributions_0_epf_wages"
+                    min="0"
+                    step="1"
+                    required
+                    onchange="updateEPFValues(0)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_eps_wages"
+                    >EPS Wages (₹):</label
+                  >
+                  <input
+                    type="number"
+                    id="monthly_contributions_0_eps_wages"
+                    name="monthly_contributions_0_eps_wages"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_employee_epf"
+                    >Employee EPF (₹):</label
+                  >
+                  <input
+                    type="number"
+                    id="monthly_contributions_0_employee_epf"
+                    name="monthly_contributions_0_employee_epf"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_employer_epf"
+                    >Employer EPF (₹):</label
+                  >
+                  <input
+                    type="number"
+                    id="monthly_contributions_0_employer_epf"
+                    name="monthly_contributions_0_employer_epf"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="monthly_contributions_0_employer_eps"
+                    >Employer EPS (₹):</label
+                  >
+                  <input
+                    type="number"
+                    id="monthly_contributions_0_employer_eps"
+                    name="monthly_contributions_0_employer_eps"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button
+              type="button"
+              class="add-row"
+              onclick="addMonthlyContributionRow()"
+            >
+              Add Row
+            </button>
+            <button
+              type="button"
+              class="delete-row"
+              onclick="deleteMonthlyContributionRow()"
+            >
+              Remove Row
+            </button>
+          </div>
+        </div>
+
+        <!-- Totals Section
+        <div class="form-section">
+          <h3>Totals</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="totals_employee_epf_total"
+                >Employee EPF Total (₹):</label
+              >
+              <input
+                type="number"
+                id="totals_employee_epf_total"
+                name="totals_employee_epf_total"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="totals_employer_epf_total"
+                >Employer EPF Total (₹):</label
+              >
+              <input
+                type="number"
+                id="totals_employer_epf_total"
+                name="totals_employer_epf_total"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="totals_employer_eps_total"
+                >Employer EPS Total (₹):</label
+              >
+              <input
+                type="number"
+                id="totals_employer_eps_total"
+                name="totals_employer_eps_total"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Total Withdrawals Section -->
+        <div class="form-section">
+          <h3>Total Withdrawals</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="total_withdrawals_employee_epf"
+                >Employee EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="total_withdrawals_employee_epf"
+                name="total_withdrawals_employee_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="total_withdrawals_employer_epf"
+                >Employer EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="total_withdrawals_employer_epf"
+                name="total_withdrawals_employer_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="total_withdrawals_employer_eps"
+                >Employer EPS (₹):</label
+              >
+              <input
+                type="number"
+                id="total_withdrawals_employer_eps"
+                name="total_withdrawals_employer_eps"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Total Transfer-Ins Section -->
+        <div class="form-section">
+          <h3>Total Transfer-Ins</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="total_transfer_ins_employee_epf"
+                >Employee EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="total_transfer_ins_employee_epf"
+                name="total_transfer_ins_employee_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="total_transfer_ins_employer_epf"
+                >Employer EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="total_transfer_ins_employer_epf"
+                name="total_transfer_ins_employer_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="total_transfer_ins_employer_eps"
+                >Employer EPS (₹):</label
+              >
+              <input
+                type="number"
+                id="total_transfer_ins_employer_eps"
+                name="total_transfer_ins_employer_eps"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Interest Update Section -->
+        <div class="form-section">
+          <h3>Interest Update</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="interest_update_upto_date">Up to Date:</label>
+              <input
+                type="date"
+                id="interest_update_upto_date"
+                name="interest_update_upto_date"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="interest_update_employee_epf_interest"
+                >Employee EPF Interest (₹):</label
+              >
+              <input
+                type="number"
+                id="interest_update_employee_epf_interest"
+                name="interest_update_employee_epf_interest"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="interest_update_employer_epf_interest"
+                >Employer EPF Interest (₹):</label
+              >
+              <input
+                type="number"
+                id="interest_update_employer_epf_interest"
+                name="interest_update_employer_epf_interest"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="interest_update_employer_eps_interest"
+                >Employer EPS Interest (₹):</label
+              >
+              <input
+                type="number"
+                id="interest_update_employer_eps_interest"
+                name="interest_update_employer_eps_interest"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Closing Balance Section
+        <div class="form-section">
+          <h3>Closing Balance</h3>
+          <div class="grid-container">
+            <div class="form-group">
+              <label for="closing_balance_upto_date">Up to Date:</label>
+              <input
+                type="date"
+                id="closing_balance_upto_date"
+                name="closing_balance_upto_date"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="closing_balance_employee_epf"
+                >Employee EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="closing_balance_employee_epf"
+                name="closing_balance_employee_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="closing_balance_employer_epf"
+                >Employer EPF (₹):</label
+              >
+              <input
+                type="number"
+                id="closing_balance_employer_epf"
+                name="closing_balance_employer_epf"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="closing_balance_employer_eps"
+                >Employer EPS (₹):</label
+              >
+              <input
+                type="number"
+                id="closing_balance_employer_eps"
+                name="closing_balance_employer_eps"
+                min="0"
+                step="1"
+                required
+              />
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Taxable Section -->
+        <div class="form-section">
+          <h3>Taxable Section</h3>
+          <!-- Opening Balance -->
+          <!-- <div class="nested-section">
+            <h4>Opening Balance</h4>
+            <div class="grid-container">
+              <div class="form-group">
+                <label for="taxable_section_opening_balance_upto_date"
+                  >Up to Date:</label
+                >
+                <input
+                  type="date"
+                  id="taxable_section_opening_balance_upto_date"
+                  name="taxable_section_opening_balance_upto_date"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_opening_balance_monthly_contribution"
+                  >Monthly Contribution (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_opening_balance_monthly_contribution"
+                  name="taxable_section_opening_balance_monthly_contribution"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_opening_balance_cumulative_non_taxable"
+                  >Cumulative Non-Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_opening_balance_cumulative_non_taxable"
+                  name="taxable_section_opening_balance_cumulative_non_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="taxable_section_opening_balance_cumulative_taxable"
+                  >Cumulative Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_opening_balance_cumulative_taxable"
+                  name="taxable_section_opening_balance_cumulative_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+            </div>
+          </div> -->
+          <!-- Monthly Entries -->
+          <div class="nested-section">
+            <h4>Monthly Entries</h4>
+            <div id="taxable_section_monthly_entries">
+              <!-- Initial Entry -->
+              <div class="array-entry" data-index="0">
+                <div class="grid-container">
+                  <div class="form-group">
+                    <label for="taxable_section_monthly_entries_0_month"
+                      >Month:</label
+                    >
+                    <input
+                      type="month"
+                      id="taxable_section_monthly_entries_0_month"
+                      name="taxable_section_monthly_entries_0_month"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label
+                      for="taxable_section_monthly_entries_0_monthly_contribution"
+                      >Monthly Contribution (₹):</label
+                    >
+                    <input
+                      type="number"
+                      id="taxable_section_monthly_entries_0_monthly_contribution"
+                      name="taxable_section_monthly_entries_0_monthly_contribution"
+                      min="0"
+                      step="1"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label
+                      for="taxable_section_monthly_entries_0_cumulative_non_taxable"
+                      >Cumulative Non-Taxable (₹):</label
+                    >
+                    <input
+                      type="number"
+                      id="taxable_section_monthly_entries_0_cumulative_non_taxable"
+                      name="taxable_section_monthly_entries_0_cumulative_non_taxable"
+                      min="0"
+                      step="1"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label
+                      for="taxable_section_monthly_entries_0_cumulative_taxable"
+                      >Cumulative Taxable (₹):</label
+                    >
+                    <input
+                      type="number"
+                      id="taxable_section_monthly_entries_0_cumulative_taxable"
+                      name="taxable_section_monthly_entries_0_cumulative_taxable"
+                      min="0"
+                      step="1"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button
+                type="button"
+                class="add-row"
+                onclick="addTaxableMonthlyEntryRow()"
+              >
+                Add Row
+              </button>
+              <button
+                type="button"
+                class="delete-row"
+                onclick="deleteTaxableMonthlyEntryRow()"
+              >
+                Remove Row
+              </button>
+            </div>
+          </div>
+          <!-- Interest Update -->
+          <div class="nested-section">
+            <h4>Interest Update</h4>
+            <div class="grid-container">
+              <div class="form-group">
+                <label for="taxable_section_interest_update_upto_date"
+                  >Up to Date:</label
+                >
+                <input
+                  type="date"
+                  id="taxable_section_interest_update_upto_date"
+                  name="taxable_section_interest_update_upto_date"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_interest_update_monthly_contribution"
+                  >Monthly Contribution (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_interest_update_monthly_contribution"
+                  name="taxable_section_interest_update_monthly_contribution"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_interest_update_cumulative_non_taxable"
+                  >Cumulative Non-Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_interest_update_cumulative_non_taxable"
+                  name="taxable_section_interest_update_cumulative_non_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="taxable_section_interest_update_cumulative_taxable"
+                  >Cumulative Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_interest_update_cumulative_taxable"
+                  name="taxable_section_interest_update_cumulative_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Closing Balance -->
+          <!-- <div class="nested-section">
+            <h4>Closing Balance</h4>
+            <div class="grid-container">
+              <div class="form-group">
+                <label for="taxable_section_closing_balance_upto_date"
+                  >Up to Date:</label
+                >
+                <input
+                  type="date"
+                  id="taxable_section_closing_balance_upto_date"
+                  name="taxable_section_closing_balance_upto_date"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_closing_balance_monthly_contribution"
+                  >Monthly Contribution (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_closing_balance_monthly_contribution"
+                  name="taxable_section_closing_balance_monthly_contribution"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="taxable_section_closing_balance_cumulative_non_taxable"
+                  >Cumulative Non-Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_closing_balance_cumulative_non_taxable"
+                  name="taxable_section_closing_balance_cumulative_non_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="taxable_section_closing_balance_cumulative_taxable"
+                  >Cumulative Taxable (₹):</label
+                >
+                <input
+                  type="number"
+                  id="taxable_section_closing_balance_cumulative_taxable"
+                  name="taxable_section_closing_balance_cumulative_taxable"
+                  min="0"
+                  step="1"
+                  required
+                />
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        flatpickr("#member_dob", {
+          dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "F j, Y",
+          allowInput: true,
+          position: "below",
+        });
+      });
+    </script>
+    <script src="./inputForm.js"></script>
+  </body>
+</html>

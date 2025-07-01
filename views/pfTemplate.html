@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EPFO Member Passbook</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <div class="header">
+        <!-- Left Logo -->
+        <div class="header-left logo-blur">
+          <img id="epfoLogo" src="../assets/EPFO_Logo.png" alt="EPFO Logo" />
+        </div>
+
+        <!-- Center Text -->
+        <div class="header-text text-blur">
+          <p class="hindi-title">कर्मचारी भविष्य निधि संगठन</p>
+          <p class="subtitle">(श्रम एवं रोजगार मंत्रालय, भारत सरकार)</p>
+          <p class="english-title">EMPLOYEES' PROVIDENT FUND ORGANISATION</p>
+          <p class="subtitle">
+            (Ministry of Labour & Employment, Govt. of India)
+          </p>
+        </div>
+
+        <!-- Right Logo -->
+        <div class="header-right logo-blur">
+          <img
+            id="amritLogo"
+            src="../assets/azadi-ka-amrit-mahotsav.jpg"
+            alt="Amrit Mahotsav Logo"
+          />
+        </div>
+      </div>
+
+      <div class="passbook-title">
+        <span class="hindi-label">सदस्य पासबुक</span>
+        <span class="slash-divider">/</span>
+        <span class="english-label">Member Passbook</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Member Information Section -->
+      <div class="info" id="memberInfo">
+        <!-- Dynamic member info will be populated here -->
+      </div>
+
+      <!-- EPF Passbook Table -->
+      <table id="epfTable">
+        <caption class="passbook-title" id="tableCaption">
+          <!-- Dynamic caption will be populated here -->
+        </caption>
+        <colgroup>
+          <col style="width: 8%" />
+          <col style="width: 8%" />
+          <col style="width: 5%" />
+          <col style="width: 18%" />
+          <col style="width: 10%" />
+          <col style="width: 10%" />
+          <col style="width: 12%" />
+          <col style="width: 12%" />
+          <col style="width: 12%" />
+        </colgroup>
+        <thead id="tableHeader">
+          <!-- Dynamic header will be populated here -->
+        </thead>
+        <tbody id="tableBody">
+          <!-- Dynamic rows will be populated here -->
+        </tbody>
+      </table>
+
+      <!-- Footer Section -->
+      <div class="footer">
+        <div class="end-statement">
+          <span class="hindi-label">विवरण की समाप्ति / </span>
+          <span class="english-label"> End Of Statement</span>
+        </div>
+        <div class="disclaimer-section">
+          <p class="disclaimer-hindi">
+            प्रतिख्यान - उपर दी गई जानकारी कैन्द्रिय सर्वर पर दी गई जानकारी के
+            आधार पर है। यह जानकारी कानूनी प्रयोजन के लिए उपयोग नहीं जा सकती है।
+          </p>
+          <p class="disclaimer-english">
+            Disclaimer - Information shown above is based on available data on
+            central server. This information may not be use for legal purpose.
+          </p>
+        </div>
+        <div class="divider-line"></div>
+        <div class="warning-section">
+          <p class="warning-item">
+            * Please never respond to any call for sharing any personal details
+            like Aadhar, PAN, Bank details, OTP or request for any payment.
+          </p>
+          <p class="warning-item">
+            * EPFO never calls members/ pensioners to deposit any amount.
+          </p>
+          <p class="warning-item">
+            * Please do not make any payment based on any such call.
+          </p>
+        </div>
+        <div class="divider-line"></div>
+      </div>
+    </div>
+
+    <!-- Second Page for Taxable Data -->
+    <div class="page-break"></div>
+    <div class="container">
+      <!-- Header Section (Repeated) -->
+      <div class="header">
+        <!-- Left Logo -->
+        <div class="header-left logo-blur">
+          <img id="epfoLogo" src="../assets/EPFO_Logo.png" alt="EPFO Logo" />
+        </div>
+
+        <!-- Center Text -->
+        <div class="header-text text-blur">
+          <p class="hindi-title">कर्मचारी भविष्य निधि संगठन</p>
+          <p class="subtitle">(श्रम एवं रोजगार मंत्रालय, भारत सरकार)</p>
+          <p class="english-title">EMPLOYEES' PROVIDENT FUND ORGANISATION</p>
+          <p class="subtitle">
+            (Ministry of Labour & Employment, Govt. of India)
+          </p>
+        </div>
+
+        <!-- Right Logo -->
+        <div class="header-right logo-blur">
+          <img
+            id="amritLogo"
+            src="../assets/azadi-ka-amrit-mahotsav.jpg"
+            alt="Amrit Mahotsav Logo"
+          />
+        </div>
+      </div>
+
+      <div class="passbook-title">सदस्य पासबुक / Member Passbook</div>
+      <div class="divider"></div>
+
+      <!-- Member Information Section (Repeated) -->
+      <div class="info" id="memberInfo2">
+        <!-- Dynamic member info will be populated here -->
+      </div>
+
+      <!-- Taxable Data Table -->
+      <table id="taxableTable">
+        <caption class="passbook-title" id="taxableCaption">
+          <!-- Dynamic caption will be populated here -->
+        </caption>
+        <colgroup>
+          <col style="width: 25%" />
+          <col style="width: 25%" />
+          <col style="width: 25%" />
+          <col style="width: 25%" />
+        </colgroup>
+        <tbody id="taxableBody">
+          <!-- Dynamic rows will be populated here -->
+        </tbody>
+      </table>
+
+      <div class="note">
+        *In case taxable interest is less than Rs. 5,000/- then TDS will not be
+        deducted.
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

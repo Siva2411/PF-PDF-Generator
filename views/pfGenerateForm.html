@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Member PDF Download Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">EPF Passbook Generate</h2>
+      <form id="pdfForm" class="space-y-4">
+        <div>
+          <label for="memberId" class="block text-sm font-medium text-gray-700"
+            >Member ID</label
+          >
+          <input
+            type="text"
+            id="memberId"
+            name="memberId"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div>
+          <label
+            for="financialYear"
+            class="block text-sm font-medium text-gray-700"
+            >Financial Year</label
+          >
+          <select
+            id="financialYear"
+            name="financialYear"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="" disabled selected>Select Financial Year</option>
+            <!-- Dynamically generate financial years from 2000-2001 to 2049-2050 -->
+            <script>
+              for (let year = 2000; year <= 2049; year++) {
+                const financialYear = `${year}-${year + 1}`;
+                document.write(
+                  `<option value="${financialYear}">${financialYear}</option>`
+                );
+              }
+            </script>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Download PDF
+        </button>
+        <div
+          id="loadingIndicator"
+          class="hidden text-center text-indigo-600 text-sm"
+        >
+          <svg
+            class="animate-spin inline-block w-5 h-5 mr-2 text-indigo-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+            ></path>
+          </svg>
+          Generating your PDF, please wait...
+        </div>
+
+        <a
+          href="./inputForm.html"
+          target="_blank"
+          class="block w-full text-center bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Go to Input Form
+        </a>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("pdfForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const memberId = document.getElementById("memberId").value.trim();
+          const financialYear = document.getElementById("financialYear").value;
+          const submitButton = this.querySelector("button[type='submit']");
+          const loadingIndicator = document.getElementById("loadingIndicator");
+
+          if (!memberId || !financialYear) {
+            alert("Please enter both Member ID and Financial Year.");
+            return;
+          }
+
+          // Show loading spinner and disable button
+          loadingIndicator.classList.remove("hidden");
+          submitButton.disabled = true;
+          submitButton.classList.add("opacity-60", "cursor-not-allowed");
+
+          try {
+            const response = await fetch(
+              `/api/generate-passbook/${memberId}/${financialYear}`
+            );
+
+            if (!response.ok) {
+              throw new Error("Failed to fetch PDF.");
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            const safeFilename = `${memberId}-${financialYear.split("-")[0]}`;
+            console.log("pdf generation with fimename"+safeFilename);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${safeFilename}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+          } catch (error) {
+            console.error("Download error:", error);
+            alert("Failed to download the PDF. Please try again.");
+          } finally {
+            // Hide loading and reset button
+            loadingIndicator.classList.add("hidden");
+            submitButton.disabled = false;
+            submitButton.classList.remove("opacity-60", "cursor-not-allowed");
+          }
+        });
+    </script>
+  </body>
+</html>
