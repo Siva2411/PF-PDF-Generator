@@ -47,12 +47,11 @@ app.get(
 
       const data = result.data;
 
-      const puppeteer = require('puppeteer');
+      const puppeteer = require("puppeteer");
 
       const browser = await puppeteer.launch({
-        headless: true,
-        executablePath: puppeteer.executablePath(), // Important!
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        headless: "new", // or true
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
 
       const page = await browser.newPage();
