@@ -1,10 +1,16 @@
-// src/database.js (or wherever your DB config is)
-const { Sequelize } = require('sequelize');
+const fs = require('fs');
 const path = require('path');
+const { Sequelize } = require('sequelize');
 
-const dbPath = process.env.NODE_ENV === 'production'
-  ? '/data/database.sqlite'
-  : path.join(__dirname, '../data/database.sqlite');
+const isProduction = process.env.NODE_ENV === 'production';
+ 
+const dbFolder = isProduction ? '/data' : path.join(__dirname, '../data');
+const dbPath = path.join(dbFolder, 'database.sqlite');
+
+// Ensure the folder exists
+if (!fs.existsSync(dbFolder)) {
+  fs.mkdirSync(dbFolder, { recursive: true });
+}
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -12,4 +18,4 @@ const sequelize = new Sequelize({
   logging: false
 });
 
-module.exports = sequelize; // <- Make sure this is here!
+module.exports = sequelize;
