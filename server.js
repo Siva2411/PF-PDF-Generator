@@ -47,9 +47,14 @@ app.get(
 
       const data = result.data;
 
+      const puppeteer = require('puppeteer');
+
       const browser = await puppeteer.launch({
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        headless: true,
+        executablePath: puppeteer.executablePath(), // Important!
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
+
       const page = await browser.newPage();
 
       const htmlFilePath = path.resolve(__dirname, "views", "pfTemplate.html");
