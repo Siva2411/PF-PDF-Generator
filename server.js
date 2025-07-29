@@ -47,11 +47,10 @@ app.get(
 
       const data = result.data;
 
-      const puppeteer = require("puppeteer");
-
       const browser = await puppeteer.launch({
-        headless: "new", // or true
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        headless: 'new', // or true
+        executablePath: puppeteer.executablePath(), // automatically uses installed Chromium
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
 
       const page = await browser.newPage();
