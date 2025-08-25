@@ -12,7 +12,7 @@
 
 
 
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -22,6 +22,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: 'mysql',
     port: process.env.DB_PORT || 3306,
-    logging: false // set false to avoid that deprecation warning
+    logging: false
   }
 );
+module.exports = { sequelize, DataTypes };

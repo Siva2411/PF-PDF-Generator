@@ -296,9 +296,12 @@
         align-items: center;
         justify-content: start;
         text-align: center;
-        color: #000;
-        margin: 2rem 0;
-        padding-left: 50px;
+        color: #000;  
+        margin-top: 40px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: 12px;
+        padding-left: 70px;
         position: relative;
       }
 

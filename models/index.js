@@ -1,6 +1,7 @@
-const sequelize = require("../config/database");
-const { DataTypes } = require("sequelize");
+// const sequelize = require("../config/database");
+// const { DataTypes } = require("sequelize");
 
+const { sequelize, DataTypes } = require("../config/database copy.js");
 const Member = require("./Member")(sequelize, DataTypes);
 const OpeningBalance = require("./OpeningBalance")(sequelize, DataTypes);
 const MonthlyContribution = require("./MonthlyContribution")(

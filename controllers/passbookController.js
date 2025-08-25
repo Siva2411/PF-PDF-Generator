@@ -193,8 +193,27 @@ exports.createPassbook = async (req, res) => {
       where: { member_id: member.member_id, financial_year },
       transaction: t,
     });
+
+    let cumulativeTaxable = 0;
+    let cumulativeNonTaxable = 0;
+
+    const monthlyEntriesWithCumulative = taxable_section.monthly_entries.map(
+      (entry) => {
+        cumulativeTaxable += entry.cumulative_taxable || 0;
+        cumulativeNonTaxable += entry.cumulative_non_taxable || 0;
+
+        return {
+          ...entry,
+          member_id: member.member_id,
+          financial_year,
+          cumulative_taxable: cumulativeTaxable,
+          cumulative_non_taxable: cumulativeNonTaxable,
+        };
+      }
+    );
+
     await TaxableMonthlyEntry.bulkCreate(
-      taxable_section.monthly_entries.map((entry) => ({
+      monthlyEntriesWithCumulative.map((entry) => ({
         ...entry,
         member_id: member.member_id,
         financial_year,
@@ -205,9 +224,7 @@ exports.createPassbook = async (req, res) => {
       where: { member_id: member.member_id, financial_year },
       transaction: t,
     });
-    const taxable_totals = calculateTaxableTotal(
-      taxable_section.monthly_entries
-    );
+    const taxable_totals = calculateTaxableTotal(monthlyEntriesWithCumulative);
     await TaxableTotal.upsert(
       {
         member_id: member.member_id,
@@ -328,7 +345,9 @@ exports.getPassbook = async (req, res) => {
           year: new Date(financial_year.trim().substring(0, 4)).getFullYear(),
           openingBalance: {
             description: opening_balance?.upto_date
-              ? `OB Int. Update upto ${formatToDDMMYYYY(opening_balance.upto_date)}`
+              ? `OB Int. Update upto ${formatToDDMMYYYY(
+                  opening_balance.upto_date
+                )}`
               : "",
             employeeBalance: opening_balance?.epf_balance || 0,
             employerBalance: opening_balance?.eps_balance || 0,
@@ -362,7 +381,9 @@ exports.getPassbook = async (req, res) => {
           },
           interestUpdated: {
             description: interest_update?.upto_date
-              ? `Int. Updated upto ${formatToDDMMYYYY(interest_update.upto_date)}`
+              ? `Int. Updated upto ${formatToDDMMYYYY(
+                  interest_update.upto_date
+                )}`
               : "",
             employee: interest_update?.employee_epf_interest || 0,
             employer: interest_update?.employer_epf_interest || 0,
@@ -370,7 +391,9 @@ exports.getPassbook = async (req, res) => {
           },
           closingBalance: {
             description: closing_balance?.upto_date
-              ? `Closing Balance as on ${formatToDDMMYYYY(closing_balance.upto_date)}`
+              ? `Closing Balance as on ${formatToDDMMYYYY(
+                  closing_balance.upto_date
+                )}`
               : "",
             employee: closing_balance?.employee_epf || 0,
             employer: closing_balance?.employer_epf || 0,
@@ -381,7 +404,9 @@ exports.getPassbook = async (req, res) => {
           financialYear: financial_year,
           openingBalance: {
             description: taxable_opening?.upto_date
-              ? `OB Int. Update upto ${formatToDDMMYYYY(taxable_opening.upto_date)}`
+              ? `OB Int. Update upto ${formatToDDMMYYYY(
+                  taxable_opening.upto_date
+                )}`
               : "",
             monthlyContribution: taxable_opening?.monthly_contribution || 0,
             nonTaxable: taxable_opening?.monthly_contribution || 0,
@@ -400,7 +425,9 @@ exports.getPassbook = async (req, res) => {
           },
           interestUpdated: {
             description: taxable_interest?.upto_date
-              ? `Int. Updated upto ${formatToDDMMYYYY(taxable_interest.upto_date)}`
+              ? `Int. Updated upto ${formatToDDMMYYYY(
+                  taxable_interest.upto_date
+                )}`
               : "",
             monthlyContribution: taxable_interest?.monthly_contribution || 0,
             nonTaxable: taxable_interest?.cumulative_non_taxable || 0,
@@ -408,7 +435,9 @@ exports.getPassbook = async (req, res) => {
           },
           closingBalance: {
             description: taxable_closing?.upto_date
-              ? `Closing Balance as on ${formatToDDMMYYYY(taxable_closing.upto_date)}`
+              ? `Closing Balance as on ${formatToDDMMYYYY(
+                  taxable_closing.upto_date
+                )}`
               : "",
             monthlyContribution: taxable_closing?.monthly_contribution || 0,
             nonTaxable: taxable_closing?.cumulative_non_taxable || 0,
@@ -505,7 +534,7 @@ const calculateTaxableTotal = (monthly_entries) => {
 
   return {
     monthly_contribution: totalMonthlyContribution,
-    cumulative_non_taxable: totalMonthlyContribution,
+    cumulative_non_taxable: totalMonthlyContribution - totalTaxable,
     cumulative_taxable: totalTaxable,
   };
 };
@@ -542,11 +571,11 @@ const calculateClosingBalanceTaxable = (
   }
   return closingBalance;
 };
-const  formatToDDMMYYYY = (dateStr) =>{
+const formatToDDMMYYYY = (dateStr) => {
   const [year, month, day] = dateStr.split("-");
   return `${day}/${month}/${year}`;
-}
-const formatMonthDateToDDMMYYY = (dateStr) =>{
+};
+const formatMonthDateToDDMMYYY = (dateStr) => {
   const [year, month, day] = dateStr.split("-");
   return `${day}-${month}-${year}`;
-}
+};

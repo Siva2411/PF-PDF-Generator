@@ -69,12 +69,11 @@ app.get(
         displayHeaderFooter: true,
         printBackground: true,
         footerTemplate: `
-        <div style="width: 100%; font-size: 18px; padding: 0 15mm; color: #000; display: flex; justify-content: space-between;">
-          <span>PYKRP269375005000</span>
+        <div style="width: 100%; font-size: 18px; padding: 0 15mm 15mm 15mm; color: #000; display: flex; justify-content: space-between;">
+          <span>${member_id}</span>
           <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
         </div>
       `,
-        margin: { top: "0px", right: "0px", bottom: "10px", left: "0px" },
       });
 
       await browser.close();

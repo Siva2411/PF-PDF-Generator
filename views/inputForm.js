@@ -219,11 +219,11 @@ function addTaxableMonthlyEntryRow() {
             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" min="0" step="1" required>
           </div>
           <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable">Cumulative Non-Taxable (₹):</label>
+            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable">Non-Taxable (₹):</label>
             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" min="0" step="1" required>
           </div>
           <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable">Cumulative Taxable (₹):</label>
+            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable">Taxable (₹):</label>
             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" min="0" step="1" required>
           </div>
         </div>

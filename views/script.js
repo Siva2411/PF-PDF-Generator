@@ -258,13 +258,13 @@ function populateEPFTable(epfData) {
 }
 
 function populateTaxableTable(taxableData) {
-  // Set table caption
-  document.getElementById(
-    "taxableCaption"
-  ).innerHTML = `Taxable data for the year [ ${taxableData.financialYear} ]`;
-
   // Generate table body
   let bodyHtml = "";
+
+  //set table caption
+  bodyHtml += `<tr class="passbook-title" id="taxableCaption">
+            <td colspan="4">Taxable data for the year [ ${taxableData.financialYear} ]</td>
+          </tr>`;
 
   // Opening balance
   if (taxableData.openingBalance) {
