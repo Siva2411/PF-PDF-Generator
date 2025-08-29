@@ -26,7 +26,6 @@ exports.createPassbook = async (req, res) => {
     interest_update,
     taxable_section,
   } = req.body;
-
   const t = await sequelize.transaction();
   try {
     await Member.upsert(member, { transaction: t });
@@ -188,7 +187,6 @@ exports.createPassbook = async (req, res) => {
       },
       { transaction: t }
     );
-
     await TaxableMonthlyEntry.destroy({
       where: { member_id: member.member_id, financial_year },
       transaction: t,
@@ -196,12 +194,17 @@ exports.createPassbook = async (req, res) => {
 
     let cumulativeTaxable = 0;
     let cumulativeNonTaxable = 0;
-
+    console.log("Calculating Cummulative Taxable intial value : ", cumulativeTaxable);
+    console.log("Calculating Cummulative NonTaxable intial value : ", cumulativeNonTaxable);
     const monthlyEntriesWithCumulative = taxable_section.monthly_entries.map(
       (entry) => {
-        cumulativeTaxable += entry.cumulative_taxable || 0;
-        cumulativeNonTaxable += entry.cumulative_non_taxable || 0;
-
+        console.log(entry);
+        console.log("Before Calculating Taxable value : ", cumulativeTaxable);
+        console.log("Before Calculating Non Taxable:", cumulativeNonTaxable);
+        cumulativeTaxable += entry.taxable || 0;
+        cumulativeNonTaxable += entry.non_taxable || 0;
+        console.log("After Calculating  Cummulative Taxable value : ", cumulativeTaxable);
+        console.log("After Calculating  Cummulative NonTaxable:", cumulativeNonTaxable);
         return {
           ...entry,
           member_id: member.member_id,

@@ -1,4 +1,3 @@
-
 const financialYearSelect = document.getElementById("financial_year");
 for (let year = 2000; year <= 2099; year++) {
   const option = document.createElement("option");
@@ -62,38 +61,38 @@ function updateWageMonthLimitsCustom() {
     }
   });
 }
-function updateTaxableMonthLimits() {
-  const financialYear = document.getElementById("financial_year").value;
-  if (!financialYear) return;
+// function updateTaxableMonthLimits() {
+//   const financialYear = document.getElementById("financial_year").value;
+//   if (!financialYear) return;
 
-  const [startYearStr, endYearStr] = financialYear.split("-");
-  const startYear = parseInt(startYearStr);
-  const endYear = parseInt(endYearStr);
+//   const [startYearStr, endYearStr] = financialYear.split("-");
+//   const startYear = parseInt(startYearStr);
+//   const endYear = parseInt(endYearStr);
 
-  // Min = April of startYear
-  const minMonth = `${startYear}-04`;
+//   // Min = April of startYear
+//   const minMonth = `${startYear}-04`;
 
-  // Max = March of endYear
-  const maxMonth = `${endYear}-03`;
+//   // Max = March of endYear
+//   const maxMonth = `${endYear}-03`;
 
-  const taxableMonthInputs = document.querySelectorAll(
-    '#taxable_section_monthly_entries input[type="month"]'
-  );
+//   const taxableMonthInputs = document.querySelectorAll(
+//     '#taxable_section_monthly_entries input[type="month"]'
+//   );
 
-  taxableMonthInputs.forEach((input) => {
-    input.min = minMonth;
-    input.max = maxMonth;
-    if (input.value) {
-      if (input.value < minMonth || input.value > maxMonth) {
-        input.value = "";
-      }
-    }
-  });
-}
+//   taxableMonthInputs.forEach((input) => {
+//     input.min = minMonth;
+//     input.max = maxMonth;
+//     if (input.value) {
+//       if (input.value < minMonth || input.value > maxMonth) {
+//         input.value = "";
+//       }
+//     }
+//   });
+// }
 
 financialYearSelect.addEventListener("change", () => {
   updateWageMonthLimitsCustom();
-  updateTaxableMonthLimits();
+  // updateTaxableMonthLimits();
   updateDateLimits();
   console.log("Financial Year changed, limits updated.");
 });
@@ -203,58 +202,58 @@ function deleteMonthlyContributionRow() {
   }
 }
 
-function addTaxableMonthlyEntryRow() {
-  const container = document.getElementById("taxable_section_monthly_entries");
-  const newEntry = document.createElement("div");
-  newEntry.className = "array-entry";
-  newEntry.dataset.index = taxableMonthlyEntryIndex;
-  newEntry.innerHTML = `
-        <div class="grid-container">
-          <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month">Month:</label>
-            <input type="month" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month" required>
-          </div>
-          <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution">Monthly Contribution (₹):</label>
-            <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" min="0" step="1" required>
-          </div>
-          <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable">Non-Taxable (₹):</label>
-            <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" min="0" step="1" required>
-          </div>
-          <div class="form-group">
-            <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable">Taxable (₹):</label>
-            <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" min="0" step="1" required>
-          </div>
-        </div>
-      `;
-  container.appendChild(newEntry);
-  taxableMonthlyEntryIndex++;
-}
+// function addTaxableMonthlyEntryRow() {
+//   const container = document.getElementById("taxable_section_monthly_entries");
+//   const newEntry = document.createElement("div");
+//   newEntry.className = "array-entry";
+//   newEntry.dataset.index = taxableMonthlyEntryIndex;
+//   newEntry.innerHTML = `
+//         <div class="grid-container">
+//           <div class="form-group">
+//             <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month">Month:</label>
+//             <input type="month" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_month" required>
+//           </div>
+//           <div class="form-group">
+//             <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution">Monthly Contribution (₹):</label>
+//             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_monthly_contribution" min="0" step="1" required>
+//           </div>
+//           <div class="form-group">
+//             <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable">Non-Taxable (₹):</label>
+//             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_non_taxable" min="0" step="1" required>
+//           </div>
+//           <div class="form-group">
+//             <label for="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable">Taxable (₹):</label>
+//             <input type="number" id="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" name="taxable_section_monthly_entries_${taxableMonthlyEntryIndex}_cumulative_taxable" min="0" step="1" required>
+//           </div>
+//         </div>
+//       `;
+//   container.appendChild(newEntry);
+//   taxableMonthlyEntryIndex++;
+// }
 
-function deleteTaxableMonthlyEntryRow() {
-  const container = document.getElementById("taxable_section_monthly_entries");
-  const entries = container.getElementsByClassName("array-entry");
-  if (entries.length > 1) {
-    container.removeChild(entries[entries.length - 1]);
-    taxableMonthlyEntryIndex--;
-  } else {
-    alert("At least one entry is required.");
-  }
-}
+// function deleteTaxableMonthlyEntryRow() {
+//   const container = document.getElementById("taxable_section_monthly_entries");
+//   const entries = container.getElementsByClassName("array-entry");
+//   if (entries.length > 1) {
+//     container.removeChild(entries[entries.length - 1]);
+//     taxableMonthlyEntryIndex--;
+//   } else {
+//     alert("At least one entry is required.");
+//   }
+// }
 
 async function handleSubmit(event) {
   event.preventDefault();
   const formData = new FormData(document.getElementById("epfForm"));
   const data = {
     member: {
-    member_id: formData.get("member_member_id"),
-    uan: formData.get("member_uan"),
-    name: formData.get("member_name"),
-    dob: formData.get("member_dob"),
-    establishment_id: formData.get("member_establishment_id"),
-    establishment_name: formData.get("member_establishment_name"),
-  },
+      member_id: formData.get("member_member_id"),
+      uan: formData.get("member_uan"),
+      name: formData.get("member_name"),
+      dob: formData.get("member_dob"),
+      establishment_id: formData.get("member_establishment_id"),
+      establishment_name: formData.get("member_establishment_name"),
+    },
     financial_year: formData.get("financial_year"),
     // opening_balance: {
     //   upto_date: formData.get("opening_balance_upto_date"),
@@ -300,18 +299,25 @@ async function handleSubmit(event) {
       //     formData.get("taxable_section_opening_balance_cumulative_taxable")
       //   ),
       // },
+      // monthly_entries: [],
+      // interest_update: {
+      //   upto_date: formData.get("taxable_section_interest_update_upto_date"),
+      //   monthly_contribution: parseInt(
+      //     formData.get("taxable_section_interest_update_monthly_contribution")
+      //   ),
+      //   cumulative_non_taxable: parseInt(
+      //     formData.get("taxable_section_interest_update_cumulative_non_taxable")
+      //   ),
+      //   cumulative_taxable: parseInt(
+      //     formData.get("taxable_section_interest_update_cumulative_taxable")
+      //   ),
+      // },
       monthly_entries: [],
       interest_update: {
-        upto_date: formData.get("taxable_section_interest_update_upto_date"),
-        monthly_contribution: parseInt(
-          formData.get("taxable_section_interest_update_monthly_contribution")
-        ),
-        cumulative_non_taxable: parseInt(
-          formData.get("taxable_section_interest_update_cumulative_non_taxable")
-        ),
-        cumulative_taxable: parseInt(
-          formData.get("taxable_section_interest_update_cumulative_taxable")
-        ),
+        upto_date: null,
+        monthly_contribution: 0,
+        cumulative_non_taxable: 0,
+        cumulative_taxable: 0,
       },
     },
   };
@@ -348,31 +354,54 @@ async function handleSubmit(event) {
   });
 
   // Collect taxable section monthly entries
-  const taxableEntries = document.querySelectorAll(
-    "#taxable_section_monthly_entries .array-entry"
-  );
-  taxableEntries.forEach((entry, index) => {
-    const taxableEntry = {
-      month: formData.get(`taxable_section_monthly_entries_${index}_month`),
-      monthly_contribution: parseInt(
-        formData.get(
-          `taxable_section_monthly_entries_${index}_monthly_contribution`
-        )
-      ),
-      cumulative_non_taxable: parseInt(
-        formData.get(
-          `taxable_section_monthly_entries_${index}_cumulative_non_taxable`
-        )
-      ),
-      cumulative_taxable: parseInt(
-        formData.get(
-          `taxable_section_monthly_entries_${index}_cumulative_taxable`
-        )
-      ),
-    };
-    data.taxable_section.monthly_entries.push(taxableEntry);
-  });
+  // const taxableEntries = document.querySelectorAll(
+  //   "#taxable_section_monthly_entries .array-entry"
+  // );
+  // taxableEntries.forEach((entry, index) => {
+  //   const taxableEntry = {
+  //     month: formData.get(`taxable_section_monthly_entries_${index}_month`),
+  //     monthly_contribution: parseInt(
+  //       formData.get(
+  //         `taxable_section_monthly_entries_${index}_monthly_contribution`
+  //       )
+  //     ),
+  //     cumulative_non_taxable: parseInt(
+  //       formData.get(
+  //         `taxable_section_monthly_entries_${index}_cumulative_non_taxable`
+  //       )
+  //     ),
+  //     cumulative_taxable: parseInt(
+  //       formData.get(
+  //         `taxable_section_monthly_entries_${index}_cumulative_taxable`
+  //       )
+  //     ),
+  //   };
+  //   data.taxable_section.monthly_entries.push(taxableEntry);
+  // });
+  let taxableEntries = initTaxableEntries(data.financial_year);
+  data.monthly_contributions.forEach((monthly_contribution) => {
+    const transactionMonth = monthly_contribution.transaction_date
+      ? monthly_contribution.transaction_date.slice(0, 7)
+      : null;
+    if (!transactionMonth) return; // skip if no date
 
+    const taxableEntry = taxableEntries.find(
+      (te) => te.month === transactionMonth
+    );
+    if (taxableEntry) {
+      taxableEntry.monthly_contribution = monthly_contribution.employee_epf;
+      taxableEntry.non_taxable = monthly_contribution.employee_epf;
+      taxableEntry.taxable = 0;
+    }
+  });
+  data.taxable_section.monthly_entries = taxableEntries;
+  data.taxable_section.interest_update.upto_date =
+    data.interest_update.upto_date;
+  data.taxable_section.interest_update.monthly_contribution =
+    data.interest_update.employee_epf_interest;
+  data.taxable_section.interest_update.cumulative_non_taxable =
+    data.interest_update.employee_epf_interest;
+  data.taxable_section.interest_update.cumulative_taxable = 0;
   console.log("Form Data:", JSON.stringify(data, null, 2));
 
   try {
@@ -385,7 +414,7 @@ async function handleSubmit(event) {
     });
 
     if (response.ok) {
-      window.location.href = "/pfGenerateForm.html"
+      window.location.href = "/pfGenerateForm.html";
     } else {
       alert("Failed to submit form. Please try again.");
     }
@@ -394,6 +423,36 @@ async function handleSubmit(event) {
     alert("An error occurred. Please check the console for details.");
   }
 }
+
+function initTaxableEntries(financialYear) {
+  const [startYearStr, endYearStr] = financialYear.split("-");
+  const startYear = parseInt(startYearStr);
+  const endYear = parseInt(endYearStr);
+
+  taxableEntries = [];
+
+  // April to December
+  for (let month = 4; month <= 12; month++) {
+    taxableEntries.push({
+      month: `${startYear}-${month.toString().padStart(2, "0")}`,
+      monthly_contribution: 0,
+      taxable: 0,
+      non_taxable: 0,
+    });
+  }
+
+  // January to March
+  for (let month = 1; month <= 3; month++) {
+    taxableEntries.push({
+      month: `${endYear}-${month.toString().padStart(2, "0")}`,
+      monthly_contribution: 0,
+      taxable: 0,
+      non_taxable: 0,
+    });
+  }
+  return taxableEntries;
+}
+
 const updateDateLimits = () => {
   const financialYear = financialYearSelect.value;
   const [startYearStr, endYearStr] = financialYear.split("-");
@@ -407,28 +466,35 @@ const updateDateLimits = () => {
     "opening_balance_upto_date",
     "interest_update_upto_date",
     "taxable_section_opening_balance_upto_date",
-    "taxable_section_interest_update_upto_date"
+    "taxable_section_interest_update_upto_date",
   ];
 
-  dateFields.forEach(id => {
+  dateFields.forEach((id) => {
     const input = document.getElementById(id);
     if (input) {
       input.min = minDate;
       input.max = maxDate;
     }
   });
-}
+};
 window.addEventListener("DOMContentLoaded", () => {
   autoFillParticulars(0);
 });
 function updateEPFValues(index) {
-  const epfWages = parseFloat(document.getElementById(`monthly_contributions_${index}_epf_wages`).value) || 0;
+  const epfWages =
+    parseFloat(
+      document.getElementById(`monthly_contributions_${index}_epf_wages`).value
+    ) || 0;
 
-  const employeeEPF = Math.floor(epfWages * 0.12);      // 12%
-  const employerEPS = Math.floor(epfWages *0.083333);  // 8.33% 
-  const employerEPF = employeeEPF-employerEPS;// 3.67%
-  document.getElementById(`monthly_contributions_${index}_eps_wages`).value = epfWages;
-  document.getElementById(`monthly_contributions_${index}_employee_epf`).value = employeeEPF;
-  document.getElementById(`monthly_contributions_${index}_employer_epf`).value = employerEPF;
-  document.getElementById(`monthly_contributions_${index}_employer_eps`).value = employerEPS;
+  const employeeEPF = Math.round(epfWages * 0.12); // 12%
+  const employerEPS = Math.round(epfWages * 0.083333); // 8.33%
+  const employerEPF = employeeEPF - employerEPS; // 3.67%
+  document.getElementById(`monthly_contributions_${index}_eps_wages`).value =
+    epfWages;
+  document.getElementById(`monthly_contributions_${index}_employee_epf`).value =
+    employeeEPF;
+  document.getElementById(`monthly_contributions_${index}_employer_epf`).value =
+    employerEPF;
+  document.getElementById(`monthly_contributions_${index}_employer_eps`).value =
+    employerEPS;
 }
