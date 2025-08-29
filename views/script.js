@@ -37,7 +37,7 @@ function populateMemberInfo(memberInfo) {
                     </span>
                     <span class="info-value">${memberInfo.dateOfBirth}</span>
                 </div>
-                <div class="info-row">
+                <div class="info-row" style="margin-bottom: 24px;">
                     <span class="info-label">
                         <span class="label-hindi">यू ए एन</span>
                         <span class="separator"></span>
@@ -290,7 +290,7 @@ function populateTaxableTable(taxableData) {
                 <tr>
                     <th rowspan="2" style="text-align: left; vertical-align: middle">Cont.Month</th>
                     <th rowspan="2" style="text-align: left">Monthly Contribution</th>
-                    <th colspan="2" style="text-align: center; vertical-align: middle">Cummulative Balance at the end of month</th>
+                    <th colspan="2" style="text-align: center; vertical-align: middle">Cummulative Balance at the end of the month</th>
                 </tr>
                 <tr>
                     <th style="text-align: right">Non-Taxable</th>
@@ -386,118 +386,118 @@ window.generatePassbook = function (data) {
   });
 };
 
-// const data = {
-//   memberInfo: {
-//     establishmentId: "PYKRP2693705000",
-//     establishmentName: "SALAGENT TECHNOLOGIES PRIVATE LIMITED",
-//     memberId: "PYKRP26937050000011052",
-//     memberName: "Rajashanker Kunda",
-//     dateOfBirth: "1990-11-21",
-//     uan: "100347718359",
-//   },
-//   epfData: {
-//     financialYear: "2022-23",
-//     year: 2022,
-//     openingBalance: {
-//       description: "As on 01/04/2022",
-//       employeeBalance: 15200,
-//       employerBalance: 14800,
-//       pensionBalance: 12500,
-//     },
-//     transactions: [
-//       {
-//         month: "April",
-//         employee: 1800,
-//         employer: 1800,
-//         pension: 1500,
-//       },
-//       {
-//         month: "May",
-//         employee: 1800,
-//         employer: 1800,
-//         pension: 1500,
-//       },
-//       {
-//         month: "June",
-//         employee: 1800,
-//         employer: 1800,
-//         pension: 1500,
-//       },
-//     ],
-//     totalContributions: {
-//       employee: 5400,
-//       employer: 5400,
-//       pension: 4500,
-//     },
-//     totalTransfers: {
-//       employee: 2000,
-//       employer: 1800,
-//       pension: 0,
-//     },
-//     totalWithdrawals: {
-//       employee: 0,
-//       employer: 0,
-//       pension: 0,
-//     },
-//     interestUpdated: {
-//       description: "Interest credited as on 31/03/2023",
-//       employee: 850,
-//       employer: 790,
-//       pension: 620,
-//     },
-//     closingBalance: {
-//       description: "As on 31/03/2023",
-//       employee: 23450,
-//       employer: 22990,
-//       pension: 17620,
-//     },
-//   },
-//   taxableData: {
-//     financialYear: "2022-23",
-//     openingBalance: {
-//       description: "As on 01/04/2022",
-//       monthlyContribution: 0,
-//       nonTaxable: 15200,
-//       taxable: 0,
-//     },
-//     transactions: [
-//       {
-//         month: "April",
-//         monthlyContribution: 1800,
-//         nonTaxable: 1800,
-//         taxable: 0,
-//       },
-//       {
-//         month: "May",
-//         monthlyContribution: 1800,
-//         nonTaxable: 1800,
-//         taxable: 0,
-//       },
-//       {
-//         month: "June",
-//         monthlyContribution: 1800,
-//         nonTaxable: 1800,
-//         taxable: 0,
-//       },
-//     ],
-//     total: {
-//       monthlyContribution: 5400,
-//       nonTaxable: 5400,
-//       taxable: 0,
-//     },
-//     interestUpdated: {
-//       description: "Interest up to 31/03/2023",
-//       monthlyContribution: 850,
-//       nonTaxable: 850,
-//       taxable: 0,
-//     },
-//     closingBalance: {
-//       description: "As on 31/03/2023",
-//       monthlyContribution: 11700,
-//       nonTaxable: 11700,
-//       taxable: 0,
-//     },
-//   },
-// };
+const data = {
+  memberInfo: {
+    establishmentId: "PYKRP2693705000",
+    establishmentName: "SALAGENT TECHNOLOGIES PRIVATE LIMITED",
+    memberId: "PYKRP26937050000011052",
+    memberName: "Rajashanker Kunda",
+    dateOfBirth: "1990-11-21",
+    uan: "100347718359",
+  },
+  epfData: {
+    financialYear: "2022-23",
+    year: 2022,
+    openingBalance: {
+      description: "As on 01/04/2022",
+      employeeBalance: 15200,
+      employerBalance: 14800,
+      pensionBalance: 12500,
+    },
+    transactions: [
+      {
+        month: "April",
+        employee: 1800,
+        employer: 1800,
+        pension: 1500,
+      },
+      {
+        month: "May",
+        employee: 1800,
+        employer: 1800,
+        pension: 1500,
+      },
+      {
+        month: "June",
+        employee: 1800,
+        employer: 1800,
+        pension: 1500,
+      },
+    ],
+    totalContributions: {
+      employee: 5400,
+      employer: 5400,
+      pension: 4500,
+    },
+    totalTransfers: {
+      employee: 2000,
+      employer: 1800,
+      pension: 0,
+    },
+    totalWithdrawals: {
+      employee: 0,
+      employer: 0,
+      pension: 0,
+    },
+    interestUpdated: {
+      description: "Interest credited as on 31/03/2023",
+      employee: 850,
+      employer: 790,
+      pension: 620,
+    },
+    closingBalance: {
+      description: "As on 31/03/2023",
+      employee: 23450,
+      employer: 22990,
+      pension: 17620,
+    },
+  },
+  taxableData: {
+    financialYear: "2022-23",
+    openingBalance: {
+      description: "As on 01/04/2022",
+      monthlyContribution: 0,
+      nonTaxable: 15200,
+      taxable: 0,
+    },
+    transactions: [
+      {
+        month: "April",
+        monthlyContribution: 1800,
+        nonTaxable: 1800,
+        taxable: 0,
+      },
+      {
+        month: "May",
+        monthlyContribution: 1800,
+        nonTaxable: 1800,
+        taxable: 0,
+      },
+      {
+        month: "June",
+        monthlyContribution: 1800,
+        nonTaxable: 1800,
+        taxable: 0,
+      },
+    ],
+    total: {
+      monthlyContribution: 5400,
+      nonTaxable: 5400,
+      taxable: 0,
+    },
+    interestUpdated: {
+      description: "Interest up to 31/03/2023",
+      monthlyContribution: 850,
+      nonTaxable: 850,
+      taxable: 0,
+    },
+    closingBalance: {
+      description: "As on 31/03/2023",
+      monthlyContribution: 11700,
+      nonTaxable: 11700,
+      taxable: 0,
+    },
+  },
+};
 
-// populatePassbook(data);
+populatePassbook(data);
