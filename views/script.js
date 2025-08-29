@@ -154,7 +154,7 @@ function populateEPFTable(epfData) {
     bodyHtml += `
                     <tr class="total-row">
                         <td colspan="6" class="aggregate-col">
-                          <strong>Total Contributions for the Year [ ${
+                          <strong>Total Contributions for the year [ ${
                             epfData.year
                           } ]
                         </strong>
@@ -263,7 +263,7 @@ function populateTaxableTable(taxableData) {
 
   //set table caption
   bodyHtml += `<tr class="passbook-title" id="taxableCaption">
-            <td colspan="4">Taxable data for the year [ ${taxableData.financialYear} ]</td>
+            <td colspan="4">Taxable Data for the year [ ${taxableData.financialYear} ]</td>
           </tr>`;
 
   // Opening balance
@@ -290,7 +290,7 @@ function populateTaxableTable(taxableData) {
                 <tr>
                     <th rowspan="2" style="text-align: left; vertical-align: middle">Cont.Month</th>
                     <th rowspan="2" style="text-align: left">Monthly Contribution</th>
-                    <th colspan="2" style="text-align: center; vertical-align: middle">Cummulative balance at the end of month</th>
+                    <th colspan="2" style="text-align: center; vertical-align: middle">Cummulative Balance at the end of month</th>
                 </tr>
                 <tr>
                     <th style="text-align: right">Non-Taxable</th>

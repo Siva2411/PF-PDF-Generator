@@ -1,4 +1,4 @@
-// Populate Financial Year Dropdown
+
 const financialYearSelect = document.getElementById("financial_year");
 for (let year = 2000; year <= 2099; year++) {
   const option = document.createElement("option");
@@ -425,7 +425,7 @@ function updateEPFValues(index) {
   const epfWages = parseFloat(document.getElementById(`monthly_contributions_${index}_epf_wages`).value) || 0;
 
   const employeeEPF = Math.floor(epfWages * 0.12);      // 12%
-  const employerEPS = Math.floor(epfWages *0.0833);  // 8.33% 
+  const employerEPS = Math.floor(epfWages *0.083333);  // 8.33% 
   const employerEPF = employeeEPF-employerEPS;// 3.67%
   document.getElementById(`monthly_contributions_${index}_eps_wages`).value = epfWages;
   document.getElementById(`monthly_contributions_${index}_employee_epf`).value = employeeEPF;
