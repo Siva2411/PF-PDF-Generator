@@ -226,7 +226,7 @@
       td {
         border: 1px solid #0a0a0a;
         vertical-align: middle;
-        padding: 4px;
+        padding: 2px;
       }
 
       th {
@@ -235,6 +235,7 @@
         font-weight: bold;
         font-size: 14px;
         text-align: left;
+        padding: 3px;
       }
 
       .opening-balance {

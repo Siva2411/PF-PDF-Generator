@@ -67,10 +67,10 @@ function populateEPFTable(epfData) {
   // Set table header
   const headerHtml = `
                 <tr>
-                    <th colspan="6" style="text-align: left">विवरण / <span>Particulars</span></th>
-                    <th style="text-align: right">कर्मचारी शेष / <br /><span>Employee Balance</span></th>
-                    <th style="text-align: right">नियोक्ता शेष / <br /><span>Employer Balance</span></th>
-                    <th style="text-align: right">पेंशन शेष / <br /><span>Pension Balance</span></th>
+                    <th colspan="6" style="text-align: left">विवरण <span style="font-size:18px;vertical-align:middle">/</span> <span>Particulars</span></th>
+                    <th style="text-align: right">कर्मचारी शेष <span style="font-size:18px;vertical-align:middle">/</span> <br /><span>Employee Balance</span></th>
+                    <th style="text-align: right">नियोक्ता शेष <span style="font-size:18px;vertical-align:middle">/</span> <br /><span>Employer Balance</span></th>
+                    <th style="text-align: right">पेंशन शेष <span style="font-size:18px;vertical-align:middle">/</span> <br /><span>Pension Balance</span></th>
                 </tr>
             `;
   document.getElementById("tableHeader").innerHTML = headerHtml;
@@ -101,20 +101,24 @@ function populateEPFTable(epfData) {
   // Sub headers for transactions
   bodyHtml += `
                 <tr>
-                    <th rowspan="2" style="text-align: center; vertical-align: middle">वेतन माह / <br />Wage Month</th>
-                    <th colspan="2" style="text-align: center">लेनदेन / Transaction</th>
-                    <th rowspan="2" style="text-align: center; vertical-align: middle">विवरण / Particulars</th>
-                    <th colspan="2" style="text-align: center">वेतन / Wages</th>
-                    <th colspan="3" style="text-align: center">अंशदान / Contribution</th>
+                    <th rowspan="2" style="text-align: center; vertical-align: middle">
+                    <span>
+                    वेतन माह <span style="font-size:20px;vertical-align:middle">/</span><br />Wage Month
+                    </span>
+                    </th>
+                    <th colspan="2" style="text-align: center">लेनदेन <span style="font-size:20px;vertical-align:middle">/</span> Transaction</th>
+                    <th rowspan="2" style="text-align: center; vertical-align: middle">विवरण <span style="font-size:18px;vertical-align:middle">/</span> Particulars</th>
+                    <th colspan="2" style="text-align: center">वेतन <span style="font-size:18px;vertical-align:middle">/</span> Wages</th>
+                    <th colspan="3" style="text-align: center">अंशदान <span style="font-size:18px;vertical-align:middle">/</span> Contribution</th>
                 </tr>
                 <tr>
-                    <th style="text-align: center">दिनांक / Date</th>
-                    <th style="text-align: center">प्रकार / Type</th>
-                    <th style="text-align: center">ई.पी.एफ / EPF</th>
-                    <th style="text-align: center">ई.पी.एस / EPS</th>
-                    <th style="text-align: center">कर्मचारी / <br />Employee</th>
-                    <th style="text-align: center">नियोक्ता / <br />Employer</th>
-                    <th style="text-align: center">पेंशन / <br />Pension</th>
+                    <th style="text-align: center">दिनांक <span style="font-size:18px;vertical-align:middle">/</span> Date</th>
+                    <th style="text-align: center">प्रकार<br /><span style="font-size:18px;vertical-align:middle">/</span> Type</th>
+                    <th style="text-align: center">ई.पी.एफ <span style="font-size:18px;vertical-align:middle">/</span> EPF</th>
+                    <th style="text-align: center">ई.पी.एस <span style="font-size:18px;vertical-align:middle">/</span> EPS</th>
+                    <th style="text-align: center">कर्मचारी <span style="font-size:18px;vertical-align:middle">/</span> Employee</th>
+                    <th style="text-align: center">नियोक्ता <span style="font-size:18px;vertical-align:middle">/</span> Employer</th>
+                    <th style="text-align: center">पेंशन <span style="font-size:18px;vertical-align:middle">/</span> Pension</th>
                 </tr>
             `;
 
@@ -388,116 +392,215 @@ window.generatePassbook = function (data) {
 
 const data = {
   memberInfo: {
-    establishmentId: "PYKRP2693705000",
-    establishmentName: "SALAGENT TECHNOLOGIES PRIVATE LIMITED",
-    memberId: "PYKRP26937050000011052",
-    memberName: "Rajashanker Kunda",
-    dateOfBirth: "1990-11-21",
+    memberId: "PYKRP26937050000010049",
     uan: "100347718359",
+    memberName: "PATRO SHANKER",
+    dateOfBirth: "1995-08-25",
+    establishmentId: "PYKRP2693705000",
+    establishmentName: " SALAGENT TECHNOLOGIES PRIVATE LIMITED",
   },
   epfData: {
-    financialYear: "2022-23",
-    year: 2022,
-    openingBalance: {
-      description: "As on 01/04/2022",
-      employeeBalance: 15200,
-      employerBalance: 14800,
-      pensionBalance: 12500,
-    },
+    financialYear: "2022-2023",
     transactions: [
       {
-        month: "April",
-        employee: 1800,
-        employer: 1800,
-        pension: 1500,
+        wageMonth: "2022-06",
+        date: "2022-07-15",
+        type: "CR",
+        particulars: "Cont. For Due-Month 072022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
       },
       {
-        month: "May",
-        employee: 1800,
-        employer: 1800,
-        pension: 1500,
+        wageMonth: "2022-07",
+        date: "2022-08-12",
+        type: "CR",
+        particulars: "Cont. For Due-Month 082022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
       },
       {
-        month: "June",
-        employee: 1800,
-        employer: 1800,
-        pension: 1500,
+        wageMonth: "2022-08",
+        date: "2022-09-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 092022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2022-09",
+        date: "2023-10-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 102022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2022-10",
+        date: "2023-11-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 112022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2022-11",
+        date: "2023-12-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 122022",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2022-12",
+        date: "2023-01-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 012023",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2023-01",
+        date: "2023-02-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 022023",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
+      },
+      {
+        wageMonth: "2023-02",
+        date: "2023-03-14",
+        type: "CR",
+        particulars: "Cont. For Due-Month 032023",
+        epfWage: 15000,
+        epsWage: 15000,
+        employeeContribution: 1800,
+        employerContribution: 550,
+        pensionContribution: 1250,
       },
     ],
-    totalContributions: {
-      employee: 5400,
-      employer: 5400,
-      pension: 4500,
-    },
-    totalTransfers: {
-      employee: 2000,
-      employer: 1800,
-      pension: 0,
-    },
     totalWithdrawals: {
       employee: 0,
       employer: 0,
       pension: 0,
     },
-    interestUpdated: {
-      description: "Interest credited as on 31/03/2023",
-      employee: 850,
-      employer: 790,
-      pension: 620,
+    totalTransfers: {
+      employee: 0,
+      employer: 0,
+      pension: 0,
     },
-    closingBalance: {
-      description: "As on 31/03/2023",
-      employee: 23450,
-      employer: 22990,
-      pension: 17620,
+    interestUpdated: {
+      upto_date: "2023-03-31",
+      employee: 440,
+      employer: 134,
+      pension: 0,
     },
   },
   taxableData: {
-    financialYear: "2022-23",
-    openingBalance: {
-      description: "As on 01/04/2022",
-      monthlyContribution: 0,
-      nonTaxable: 15200,
-      taxable: 0,
-    },
+    financialYear: "2022-2023",
     transactions: [
       {
-        month: "April",
-        monthlyContribution: 1800,
-        nonTaxable: 1800,
+        month: "2022-04",
+        monthlyContribution: 0,
         taxable: 0,
+        nonTaxable: 0,
       },
       {
-        month: "May",
-        monthlyContribution: 1800,
-        nonTaxable: 1800,
+        month: "2022-05",
+        monthlyContribution: 0,
         taxable: 0,
+        nonTaxable: 0,
       },
       {
-        month: "June",
-        monthlyContribution: 1800,
-        nonTaxable: 1800,
+        month: "2022-06",
+        monthlyContribution: 0,
         taxable: 0,
+        nonTaxable: 0,
+      },
+      {
+        month: "2022-07",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
+      },
+      {
+        month: "2022-08",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
+      },
+      {
+        month: "2022-09",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
+      },
+      {
+        month: "2022-10",
+        monthlyContribution: 0,
+        taxable: 0,
+        nonTaxable: 0,
+      },
+      {
+        month: "2022-11",
+        monthlyContribution: 0,
+        taxable: 0,
+        nonTaxable: 0,
+      },
+      {
+        month: "2022-12",
+        monthlyContribution: 0,
+        taxable: 0,
+        nonTaxable: 0,
+      },
+      {
+        month: "2023-01",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
+      },
+      {
+        month: "2023-02",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
+      },
+      {
+        month: "2023-03",
+        monthlyContribution: 1800,
+        taxable: 0,
+        nonTaxable: 1800,
       },
     ],
-    total: {
-      monthlyContribution: 5400,
-      nonTaxable: 5400,
-      taxable: 0,
-    },
-    interestUpdated: {
-      description: "Interest up to 31/03/2023",
-      monthlyContribution: 850,
-      nonTaxable: 850,
-      taxable: 0,
-    },
-    closingBalance: {
-      description: "As on 31/03/2023",
-      monthlyContribution: 11700,
-      nonTaxable: 11700,
-      taxable: 0,
+    interestUpdate: {
+      upto_date: "2023-03-31",
+      monthlyContribution: 440,
+      cumulativeNonTaxable: 440,
+      cumulativeTaxable: 0,
     },
   },
 };
-
-populatePassbook(data);
+generatePassbook(data);
