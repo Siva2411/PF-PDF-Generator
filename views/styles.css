@@ -247,6 +247,10 @@
         background-color: white;
       }
 
+      .transaction-row td{
+        padding: 4px;
+      }
+
       .transaction-row:hover {
         background-color: white;
       }

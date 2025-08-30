@@ -126,7 +126,7 @@ function populateEPFTable(epfData) {
   epfData.transactions.forEach((transaction) => {
     bodyHtml += `
                     <tr class="transaction-row">
-                        <td style="text-align: right">${
+                        <td style="text-align: right;">${
                           transaction.wageMonth
                         }</td>
                         <td>${transaction.date}</td>
