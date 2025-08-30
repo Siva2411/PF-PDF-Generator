@@ -106,19 +106,19 @@ function populateEPFTable(epfData) {
                     वेतन माह <span style="font-size:20px;vertical-align:middle">/</span><br />Wage Month
                     </span>
                     </th>
-                    <th colspan="2" style="text-align: center">लेनदेन <span style="font-size:20px;vertical-align:middle">/</span> Transaction</th>
+                    <th colspan="2" style="text-align: center;">ट्रांसक्शन <span style="font-size:20px;vertical-align:middle">/</span> Transaction</th>
                     <th rowspan="2" style="text-align: center; vertical-align: middle">विवरण <span style="font-size:18px;vertical-align:middle">/</span> Particulars</th>
-                    <th colspan="2" style="text-align: center">वेतन <span style="font-size:18px;vertical-align:middle">/</span> Wages</th>
-                    <th colspan="3" style="text-align: center">अंशदान <span style="font-size:18px;vertical-align:middle">/</span> Contribution</th>
+                    <th colspan="2" style="text-align: center;">वेतन <span style="font-size:18px;vertical-align:middle">/</span> Wages</th>
+                    <th colspan="3" style="text-align: center;">अंशदान <span style="font-size:18px;vertical-align:middle">/</span> Contribution</th>
                 </tr>
                 <tr>
-                    <th style="text-align: center">दिनांक <span style="font-size:18px;vertical-align:middle">/</span> Date</th>
-                    <th style="text-align: center">प्रकार<br /><span style="font-size:18px;vertical-align:middle">/</span> Type</th>
-                    <th style="text-align: center">ई.पी.एफ <span style="font-size:18px;vertical-align:middle">/</span> EPF</th>
-                    <th style="text-align: center">ई.पी.एस <span style="font-size:18px;vertical-align:middle">/</span> EPS</th>
-                    <th style="text-align: center">कर्मचारी <span style="font-size:18px;vertical-align:middle">/</span> Employee</th>
-                    <th style="text-align: center">नियोक्ता <span style="font-size:18px;vertical-align:middle">/</span> Employer</th>
-                    <th style="text-align: center">पेंशन <span style="font-size:18px;vertical-align:middle">/</span> Pension</th>
+                    <th style="text-align: center;">दिनाँक <span style="font-size:18px;vertical-align:middle">/</span> Date</th>
+                    <th style="text-align: center;">प्रकार<br /><span style="font-size:18px;vertical-align:middle">/</span> Type</th>
+                    <th style="text-align: center;">ई पी एफ <span style="font-size:18px;vertical-align:middle">/</span> EPF</th>
+                    <th style="text-align: center;">ई पी एस <span style="font-size:18px;vertical-align:middle">/</span> EPS</th>
+                    <th style="text-align: center;">कर्मचारी <span style="font-size:18px;vertical-align:middle">/</span> Employee</th>
+                    <th style="text-align: center;">नियोक्ता <span style="font-size:18px;vertical-align:middle">/</span> Employer</th>
+                    <th style="text-align: center;">पेंशन <span style="font-size:18px;vertical-align:middle">/</span><br />Pension</th>
                 </tr>
             `;
 
