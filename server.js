@@ -69,7 +69,7 @@ app.get(
         displayHeaderFooter: true,
         printBackground: true,
         footerTemplate: `
-        <div style="width: 100%; font-size: 12px; padding: 0 15mm 15mm 15mm; color: #000; display: flex; justify-content: space-between;">
+        <div style="width: 100%; font-size: 14px; padding: 0 15mm 15mm 15mm; color: #000; display: flex; justify-content: space-between;">
           <span>${member_id}</span>
           <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
         </div>
