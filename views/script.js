@@ -122,9 +122,16 @@ function populateEPFTable(epfData) {
                 </tr>
             `;
 
-  // Transaction rows
-  epfData.transactions.forEach((transaction) => {
+  if (epfData.transactions.length === 0) {
     bodyHtml += `
+                    <tr class="transaction-row">
+                        <td colspan="9" style="text-align: center;">---No Transactions available for this year.---</td>
+                    </tr>
+                `;
+  } else {
+    // Transaction rows
+    epfData.transactions.forEach((transaction) => {
+      bodyHtml += `
                     <tr class="transaction-row">
                         <td style="text-align: right;">${
                           transaction.wageMonth
@@ -151,8 +158,8 @@ function populateEPFTable(epfData) {
                         )}</td>
                     </tr>
                 `;
-  });
-
+    });
+  }
   // Summary rows
   if (epfData.totalContributions) {
     bodyHtml += `

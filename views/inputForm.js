@@ -6,8 +6,8 @@ for (let year = 2000; year <= 2099; year++) {
   financialYearSelect.appendChild(option);
 }
 
-let monthlyContributionIndex = 1;
-let taxableMonthlyEntryIndex = 1;
+let monthlyContributionIndex = 0;
+let taxableMonthlyEntryIndex = 0;
 
 function getCustomFinancialYearMonthRange(financialYear) {
   const [startYearStr, endYearStr] = financialYear.trim().split("-");
@@ -194,7 +194,7 @@ function autoFillParticulars(index) {
 function deleteMonthlyContributionRow() {
   const container = document.getElementById("monthly_contributions");
   const entries = container.getElementsByClassName("array-entry");
-  if (entries.length > 1) {
+  if (entries.length >=1) {
     container.removeChild(entries[entries.length - 1]);
     monthlyContributionIndex--;
   } else {
@@ -265,26 +265,26 @@ async function handleSubmit(event) {
     // },
     monthly_contributions: [],
     total_withdrawals: {
-      employee_epf: parseInt(formData.get("total_withdrawals_employee_epf")),
-      employer_epf: parseInt(formData.get("total_withdrawals_employer_epf")),
-      employer_eps: parseInt(formData.get("total_withdrawals_employer_eps")),
+      employee_epf: parseInt(formData.get("total_withdrawals_employee_epf")) || 0,
+      employer_epf: parseInt(formData.get("total_withdrawals_employer_epf")) || 0,
+      employer_eps: parseInt(formData.get("total_withdrawals_employer_eps")) || 0,
     },
     total_transfer_ins: {
-      employee_epf: parseInt(formData.get("total_transfer_ins_employee_epf")),
-      employer_epf: parseInt(formData.get("total_transfer_ins_employer_epf")),
-      employer_eps: parseInt(formData.get("total_transfer_ins_employer_eps")),
+      employee_epf: parseInt(formData.get("total_transfer_ins_employee_epf")) || 0,
+      employer_epf: parseInt(formData.get("total_transfer_ins_employer_epf")) || 0,
+      employer_eps: parseInt(formData.get("total_transfer_ins_employer_eps")) || 0,
     },
     interest_update: {
-      upto_date: formData.get("interest_update_upto_date"),
+      upto_date: formData.get("interest_update_upto_date") || null,
       employee_epf_interest: parseInt(
         formData.get("interest_update_employee_epf_interest")
-      ),
+      ) || 0,
       employer_epf_interest: parseInt(
         formData.get("interest_update_employer_epf_interest")
-      ),
+      ) || 0,
       employer_eps_interest: parseInt(
         formData.get("interest_update_employer_eps_interest")
-      ),
+      ) || 0,
     },
     taxable_section: {
       // opening_balance: {
@@ -477,9 +477,6 @@ const updateDateLimits = () => {
     }
   });
 };
-window.addEventListener("DOMContentLoaded", () => {
-  autoFillParticulars(0);
-});
 function updateEPFValues(index) {
   const epfWages =
     parseFloat(

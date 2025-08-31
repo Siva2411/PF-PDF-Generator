@@ -27,10 +27,10 @@ exports.createPassbook = async (req, res) => {
     taxable_section,
   } = req.body;
   const t = await sequelize.transaction();
+  const [start,end] = financial_year.split("-");
   try {
     await Member.upsert(member, { transaction: t });
     let resolvedOpening;
-    const [start] = financial_year.split("-");
     const prevYear = `${parseInt(start) - 1}-${parseInt(start)}`;
     const prevClosing = await EPFClosingBalance.findOne({
       where: { member_id: member.member_id, financial_year: prevYear },
@@ -40,13 +40,13 @@ exports.createPassbook = async (req, res) => {
     console.log("previous closing balance " + { ...prevClosing });
     resolvedOpening = prevClosing
       ? {
-          upto_date: new Date(`${start}-03-31`),
+          upto_date: new Date(`${start}-04-01`),
           epf_balance: prevClosing.employee_epf || 0,
           eps_balance: prevClosing.employer_epf || 0,
           pension_balance: prevClosing.employer_eps || 0,
         }
       : {
-          upto_date: new Date(`${start}-03-31`),
+          upto_date: new Date(`${start}-04-01`),
           epf_balance: 0,
           eps_balance: 0,
           pension_balance: 0,
@@ -139,7 +139,8 @@ exports.createPassbook = async (req, res) => {
       totals,
       interest_update,
       total_transfer_ins,
-      total_withdrawals
+      total_withdrawals,
+      end
     );
 
     await EPFClosingBalance.upsert(
@@ -240,6 +241,7 @@ exports.createPassbook = async (req, res) => {
       where: { member_id: member.member_id, financial_year },
       transaction: t,
     });
+    taxable_section.interest_update.upto_date = taxable_section.interest_update.upto_date || new Date(`${end}-03-31`);
     await TaxableInterestUpdate.upsert(
       {
         ...taxable_section.interest_update,
@@ -387,7 +389,7 @@ exports.getPassbook = async (req, res) => {
               ? `Int. Updated upto ${formatToDDMMYYYY(
                   interest_update.upto_date
                 )}`
-              : "",
+              : `Interest details N/A`,
             employee: interest_update?.employee_epf_interest || 0,
             employer: interest_update?.employer_epf_interest || 0,
             pension: interest_update?.employer_eps_interest || 0,
@@ -490,7 +492,8 @@ const calculateClosingBalance = (
   totalContributions,
   interestUpdate,
   total_transfer_ins,
-  total_withdrawals
+  total_withdrawals,
+  end
 ) => {
   let closingBalance = {
     employee_epf: openingBalance.epf_balance || 0,
@@ -516,7 +519,7 @@ const calculateClosingBalance = (
   closingBalance.employer_epf -= total_withdrawals?.employer_epf || 0;
   closingBalance.employer_eps -= total_withdrawals?.employer_eps || 0;
   closingBalance.upto_date =
-    interestUpdate.upto_date || openingBalance.upto_date;
+    interestUpdate.upto_date || new Date(`${end}-03-31`);
   if (closingBalance.upto_date) {
     closingBalance.upto_date = new Date(closingBalance.upto_date)
       .toISOString()
