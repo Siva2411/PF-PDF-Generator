@@ -37,16 +37,15 @@ exports.createPassbook = async (req, res) => {
       transaction: t,
     });
     console.log("calculating opening balance for " + financial_year);
-    console.log("previous closing balance " + { ...prevClosing });
     resolvedOpening = prevClosing
       ? {
-          upto_date: new Date(`${start}-03-31`),
+          upto_date: new Date(`${start}-04-01`),
           epf_balance: prevClosing.employee_epf || 0,
           eps_balance: prevClosing.employer_epf || 0,
           pension_balance: prevClosing.employer_eps || 0,
         }
       : {
-          upto_date: new Date(`${start}-04-01`),
+          upto_date: new Date(`${start}-03-31`),
           epf_balance: 0,
           eps_balance: 0,
           pension_balance: 0,
