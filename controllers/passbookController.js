@@ -40,7 +40,7 @@ exports.createPassbook = async (req, res) => {
     console.log("previous closing balance " + { ...prevClosing });
     resolvedOpening = prevClosing
       ? {
-          upto_date: new Date(`${start}-04-01`),
+          upto_date: new Date(`${start}-03-31`),
           epf_balance: prevClosing.employee_epf || 0,
           eps_balance: prevClosing.employer_epf || 0,
           pension_balance: prevClosing.employer_eps || 0,
